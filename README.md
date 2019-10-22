@@ -1,3 +1,5 @@
+This is an Address Book Application made using React and React-Bootstrap. 
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
