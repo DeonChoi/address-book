@@ -35,6 +35,9 @@ class AddContact extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.addPerson = this.addPerson.bind(this);
+        this.editPerson = this.editPerson.bind(this);
+        this.deletePerson = this.deletePerson.bind(this);
+
         this.handleClose = this.handleClose.bind(this);
         this.handleShow = this.handleShow.bind(this);
     }
@@ -70,6 +73,28 @@ class AddContact extends React.Component {
         this.setState((state) => ({
             people: [...state.people, {newFirstName: state.firstName, newLastName: state.lastName, newAddress: state.address, newCity: state.city, newCountry: state.country, newPostalCode: state.postalCode, newPhone: state.phone,newEmail: state.email, newAge: state.age}]
         }));
+    }
+    editPerson = (index) => {
+        this.setState(state => {
+            const people = state.people.map((item, person) => {
+                if (person === index) {
+                return item + 1;
+                } else {
+                return item;
+                }
+            });
+            return {
+                people,
+            };
+        });
+    }
+    deletePerson = (index) => {
+        this.setState(state => {
+            const people = state.people.filter((item, person) => index !== person);
+            return {
+              people,
+            };
+        });
     }
     handleClose = () => {
         this.setState({
@@ -108,7 +133,7 @@ class AddContact extends React.Component {
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>City</Form.Label>
-                                <Form.Control type='city' placeholder='Washington' name='city' required onChange={event => this.handleChange(event)}></Form.Control>
+                                <Form.Control type='city' placeholder='New York' name='city' required onChange={event => this.handleChange(event)}></Form.Control>
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>Country</Form.Label>
@@ -152,7 +177,7 @@ class AddContact extends React.Component {
                     </thead>
                     <tbody>
                        {/* new table rows with table data nested inside */}
-                       {this.state.people.map(person => 
+                       {this.state.people.map( (person,index) => 
                             <tr key={person}>
                                 <td>{person.newFirstName}</td>
                                 <td>{person.newLastName}</td>
@@ -163,6 +188,8 @@ class AddContact extends React.Component {
                                 <td>{person.newPhone}</td>
                                 <td>{person.newEmail}</td>
                                 <td>{person.newAge}</td>
+                                <td><Button variant='primary' onClick={() => {this.handleShow(); this.editPerson(index); }}>Edit</Button></td>
+                                <td><Button variant='primary' onClick={() => {this.deletePerson(index); }}>Delete</Button></td>
                             </tr>
                         )}
                     </tbody>
