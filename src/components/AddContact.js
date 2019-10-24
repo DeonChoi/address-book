@@ -4,7 +4,6 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
 
-
 class AddContact extends React.Component {
     constructor(props){
         super(props);
@@ -37,7 +36,6 @@ class AddContact extends React.Component {
         this.addPerson = this.addPerson.bind(this);
         this.editPerson = this.editPerson.bind(this);
         this.deletePerson = this.deletePerson.bind(this);
-
         this.handleClose = this.handleClose.bind(this);
         this.handleShow = this.handleShow.bind(this);
     }
@@ -75,12 +73,40 @@ class AddContact extends React.Component {
         }));
     }
     editPerson = (index) => {
+        // // console.log(index);
+        // // console.log(this.state.people[index])
+        // // console.log(this.state.people[index].newAddress);
+        // let data = [...this.state.people];
+        // data[index].newFirstName = this.state.firstName;
+        // data[index].newLastName = this.state.lastName;
+        // data[index].newAddress = this.state.address;
+        // data[index].newCity = this.state.city;
+        // data[index].newCountry = this.state.country;
+        // data[index].newPostalCode = this.state.postalCode;
+        // data[index].newPhone = this.state.phone;
+        // data[index].newEmail = this.state.email;
+        // data[index].newAge = this.state.age;
+        // console.log(data[index]); //same as console.log(this.state.people[index])
+        // console.log(data);
+        // this.setState({
+        //     people: data
+        // });
+
         this.setState(state => {
-            const people = state.people.map((item, person) => {
-                if (person === index) {
-                return item + 1;
+            const people = state.people.map((person, personIndex) => {
+                if (personIndex === index) {
+                    person.newFirstName = this.state.firstName;
+                    person.newLastName = this.state.lastName;
+                    person.newAddress = this.state.address;
+                    person.newCity = this.state.city;
+                    person.newCountry = this.state.country;
+                    person.newPostalCode = this.state.postalCode;
+                    person.newPhone = this.state.phone;
+                    person.newEmail = this.state.email;
+                    person.newAge = this.state.age;
+                    return person;
                 } else {
-                return item;
+                    return person;
                 }
             });
             return {
@@ -106,6 +132,7 @@ class AddContact extends React.Component {
             show:true
         });
     }
+
     render () {
         return (
             <>
@@ -121,11 +148,11 @@ class AddContact extends React.Component {
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Group>
                                 <Form.Label>First Name</Form.Label>
-                                <Form.Control type='name' placeholder='John' name='firstName' required onChange={event => this.handleChange(event)}></Form.Control>
+                                <Form.Control type='text' placeholder='John' name='firstName' required onChange={event => this.handleChange(event)}></Form.Control>
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>Last Name</Form.Label>
-                                <Form.Control type='name' placeholder='Smith' name='lastName' required onChange={event => this.handleChange(event)}></Form.Control>
+                                <Form.Control type='text' placeholder='Smith' name='lastName' required onChange={event => this.handleChange(event)}></Form.Control>
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>Address</Form.Label>
@@ -141,11 +168,11 @@ class AddContact extends React.Component {
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>Postal Code</Form.Label>
-                                <Form.Control type='number' placeholder='12345' name='postalCode' required onChange={event => this.handleChange(event)}></Form.Control>
+                                <Form.Control type='number' placeholder='12345' name='postalCode' maxLength='5' required onChange={event => this.handleChange(event)}></Form.Control>
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>Phone</Form.Label>
-                                <Form.Control type='tel' placeholder='1234567890' name='phone' required onChange={event => this.handleChange(event)}></Form.Control>
+                                <Form.Control type='number' placeholder='1234567890' name='phone' required onChange={event => this.handleChange(event)}></Form.Control>
                             </Form.Group>
                             <Form.Group>
                                 <Form.Label>Email</Form.Label>
@@ -155,7 +182,7 @@ class AddContact extends React.Component {
                                 <Form.Label>Age</Form.Label>
                                 <Form.Control type='number' placeholder='22' name='age' required onChange={event => this.handleChange(event)}></Form.Control>
                             </Form.Group>
-                            <Button type="submit" onClick={this.addPerson}>Submit form</Button>
+                            <Button type="submit" onClick={() => {this.addPerson(); this.handleClose();}}>Submit form</Button>
                         </Form>
                     </Modal.Body>
                 </Modal>
