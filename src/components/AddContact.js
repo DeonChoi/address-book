@@ -34,6 +34,7 @@ class AddContact extends React.Component {
             personID: null
         };
         this.handleChange = this.handleChange.bind(this);
+        this.handleEditChange = this.handleEditChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.addPerson = this.addPerson.bind(this);
         this.editPerson = this.editPerson.bind(this);
@@ -69,6 +70,71 @@ class AddContact extends React.Component {
                 return this.state.people;
         }
     }
+    handleEditChange = e => {
+
+        switch (e.target.name){
+            case 'firstName':
+                // console.log(this.state.people[this.state.personID]);
+                // console.log(this.state.people[this.state.personID].newFirstName);
+                if (e.target.value === undefined){
+                    console.log('yes', this.state.people[this.state.personID].newFirstName)
+                    return this.setState({ 'firstName': (this.state.people[this.state.personID].newFirstName)}); 
+                } else {
+                    console.log('no', e.target.value)
+                    return this.setState({ 'firstName': e.target.value });
+                }
+            case 'lastName':
+                if (e.target.value === undefined){
+                    return this.setState({ 'lastName': (this.state.people[this.state.personID].newLastName)}); 
+                } else {
+                    return this.setState({ 'lastName': e.target.value });
+                }
+            case 'address':
+                if (e.target.value === undefined){
+                    return this.setState({ 'address': (this.state.people[this.state.personID].newAddress)}); 
+                } else {
+                    return this.setState({ 'address': e.target.value });
+                }   
+            case 'city':
+                if (e.target.value === undefined){
+                    return this.setState({ 'city': (this.state.people[this.state.personID].newCity)}); 
+                } else {
+                    return this.setState({ 'city': e.target.value });
+                }    
+            case 'country':
+                if (e.target.value === undefined){
+                    return this.setState({ 'country': (this.state.people[this.state.personID].newCountry)}); 
+                } else {
+                    return this.setState({ 'country': e.target.value });
+                }
+            case 'postalCode':
+                if (e.target.value === undefined){
+                    return this.setState({ 'postalCode': (this.state.people[this.state.personID].newPostalCode)}); 
+                } else {
+                    return this.setState({ 'postalCode': e.target.value });
+                }   
+            case 'phone':
+                if (e.target.value === undefined){
+                    return this.setState({ 'phone': (this.state.people[this.state.personID].newPhone)}); 
+                } else {
+                    return this.setState({ 'phone': e.target.value });
+                } 
+            case 'email':
+                if (e.target.value === undefined){
+                    return this.setState({ 'email': (this.state.people[this.state.personID].newEmail)}); 
+                } else {
+                    return this.setState({ 'email': e.target.value });
+                }
+            case 'age':
+                if (e.target.value === undefined){
+                    return this.setState({ 'age': (this.state.people[this.state.personID].newAge)}); 
+                } else {
+                    return this.setState({ 'age': e.target.value });
+                } 
+            default:
+                return this.state.people;
+        }
+    }
     handleSubmit = e => {
         e.preventDefault();
     }
@@ -81,27 +147,29 @@ class AddContact extends React.Component {
         this.setState({
             personID: index
         })
+        this.setState(state => {
+            const people = state.people.map((person, personIndex) => {
+                if (personIndex === index) {
+                    state.firstName=person.newFirstName;
+                    state.lastName =person.newLastName;
+                    state.address=person.newAddress;
+                    state.city =person.newCity;
+                    state.country=person.newCountry;
+                    state.postalCode =person.newPostalCode;
+                    state.phone=person.newPhone;
+                    state.email =person.newEmail;
+                    state.age=person.newAge;
+                    return person;
+                } else {
+                    return person;
+                }
+            });
+            return {
+                people,
+            };
+        });
     }
     editPerson = (index) => {
-        // console.log(index);
-        // console.log(this.state.people[index])
-        // console.log(this.state.people[index].newAddress);
-        // let data = [...this.state.people];
-        // data[index].newFirstName = this.state.firstName;
-        // data[index].newLastName = this.state.lastName;
-        // data[index].newAddress = this.state.address;
-        // data[index].newCity = this.state.city;
-        // data[index].newCountry = this.state.country;
-        // data[index].newPostalCode = this.state.postalCode;
-        // data[index].newPhone = this.state.phone;
-        // data[index].newEmail = this.state.email;
-        // data[index].newAge = this.state.age;
-        // console.log(data[index]); //same as console.log(this.state.people[index])
-        // console.log(data);
-        // this.setState({
-        //     people: data
-        // });
-
         this.setState(state => {
             const people = state.people.map((person, personIndex) => {
                 if (personIndex === index) {
@@ -210,7 +278,7 @@ class AddContact extends React.Component {
                 <Modal show={this.state.showEdit} onHide={this.handleCloseEdit} aria-labelledby="contained-modal-title-vcenter" centered>
                     <Modal.Header closeButton>
                         <Modal.Title>
-                            Edit Contact
+                            Edit Contact - Only edit the fields you want to change
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
