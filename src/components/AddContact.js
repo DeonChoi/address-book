@@ -34,7 +34,7 @@ class AddContact extends React.Component {
             personID: null
         };
         this.handleChange = this.handleChange.bind(this);
-        this.handleEditChange = this.handleEditChange.bind(this);
+        // this.handleEditChange = this.handleEditChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.addPerson = this.addPerson.bind(this);
         this.editPerson = this.editPerson.bind(this);
@@ -70,71 +70,71 @@ class AddContact extends React.Component {
                 return this.state.people;
         }
     }
-    handleEditChange = e => {
+    // handleEditChange = e => {
 
-        switch (e.target.name){
-            case 'firstName':
-                // console.log(this.state.people[this.state.personID]);
-                // console.log(this.state.people[this.state.personID].newFirstName);
-                if (e.target.value === undefined){
-                    console.log('yes', this.state.people[this.state.personID].newFirstName)
-                    return this.setState({ 'firstName': (this.state.people[this.state.personID].newFirstName)}); 
-                } else {
-                    console.log('no', e.target.value)
-                    return this.setState({ 'firstName': e.target.value });
-                }
-            case 'lastName':
-                if (e.target.value === undefined){
-                    return this.setState({ 'lastName': (this.state.people[this.state.personID].newLastName)}); 
-                } else {
-                    return this.setState({ 'lastName': e.target.value });
-                }
-            case 'address':
-                if (e.target.value === undefined){
-                    return this.setState({ 'address': (this.state.people[this.state.personID].newAddress)}); 
-                } else {
-                    return this.setState({ 'address': e.target.value });
-                }   
-            case 'city':
-                if (e.target.value === undefined){
-                    return this.setState({ 'city': (this.state.people[this.state.personID].newCity)}); 
-                } else {
-                    return this.setState({ 'city': e.target.value });
-                }    
-            case 'country':
-                if (e.target.value === undefined){
-                    return this.setState({ 'country': (this.state.people[this.state.personID].newCountry)}); 
-                } else {
-                    return this.setState({ 'country': e.target.value });
-                }
-            case 'postalCode':
-                if (e.target.value === undefined){
-                    return this.setState({ 'postalCode': (this.state.people[this.state.personID].newPostalCode)}); 
-                } else {
-                    return this.setState({ 'postalCode': e.target.value });
-                }   
-            case 'phone':
-                if (e.target.value === undefined){
-                    return this.setState({ 'phone': (this.state.people[this.state.personID].newPhone)}); 
-                } else {
-                    return this.setState({ 'phone': e.target.value });
-                } 
-            case 'email':
-                if (e.target.value === undefined){
-                    return this.setState({ 'email': (this.state.people[this.state.personID].newEmail)}); 
-                } else {
-                    return this.setState({ 'email': e.target.value });
-                }
-            case 'age':
-                if (e.target.value === undefined){
-                    return this.setState({ 'age': (this.state.people[this.state.personID].newAge)}); 
-                } else {
-                    return this.setState({ 'age': e.target.value });
-                } 
-            default:
-                return this.state.people;
-        }
-    }
+    //     switch (e.target.name){
+    //         case 'firstName':
+    //             // console.log(this.state.people[this.state.personID]);
+    //             // console.log(this.state.people[this.state.personID].newFirstName);
+    //             if (e.target.value === undefined){
+    //                 console.log('yes', this.state.people[this.state.personID].newFirstName)
+    //                 return this.setState({ 'firstName': (this.state.people[this.state.personID].newFirstName)}); 
+    //             } else {
+    //                 console.log('no', e.target.value)
+    //                 return this.setState({ 'firstName': e.target.value });
+    //             }
+    //         case 'lastName':
+    //             if (e.target.value === undefined){
+    //                 return this.setState({ 'lastName': (this.state.people[this.state.personID].newLastName)}); 
+    //             } else {
+    //                 return this.setState({ 'lastName': e.target.value });
+    //             }
+    //         case 'address':
+    //             if (e.target.value === undefined){
+    //                 return this.setState({ 'address': (this.state.people[this.state.personID].newAddress)}); 
+    //             } else {
+    //                 return this.setState({ 'address': e.target.value });
+    //             }   
+    //         case 'city':
+    //             if (e.target.value === undefined){
+    //                 return this.setState({ 'city': (this.state.people[this.state.personID].newCity)}); 
+    //             } else {
+    //                 return this.setState({ 'city': e.target.value });
+    //             }    
+    //         case 'country':
+    //             if (e.target.value === undefined){
+    //                 return this.setState({ 'country': (this.state.people[this.state.personID].newCountry)}); 
+    //             } else {
+    //                 return this.setState({ 'country': e.target.value });
+    //             }
+    //         case 'postalCode':
+    //             if (e.target.value === undefined){
+    //                 return this.setState({ 'postalCode': (this.state.people[this.state.personID].newPostalCode)}); 
+    //             } else {
+    //                 return this.setState({ 'postalCode': e.target.value });
+    //             }   
+    //         case 'phone':
+    //             if (e.target.value === undefined){
+    //                 return this.setState({ 'phone': (this.state.people[this.state.personID].newPhone)}); 
+    //             } else {
+    //                 return this.setState({ 'phone': e.target.value });
+    //             } 
+    //         case 'email':
+    //             if (e.target.value === undefined){
+    //                 return this.setState({ 'email': (this.state.people[this.state.personID].newEmail)}); 
+    //             } else {
+    //                 return this.setState({ 'email': e.target.value });
+    //             }
+    //         case 'age':
+    //             if (e.target.value === undefined){
+    //                 return this.setState({ 'age': (this.state.people[this.state.personID].newAge)}); 
+    //             } else {
+    //                 return this.setState({ 'age': e.target.value });
+    //             } 
+    //         default:
+    //             return this.state.people;
+    //     }
+    // }
     handleSubmit = e => {
         e.preventDefault();
     }
@@ -278,10 +278,12 @@ class AddContact extends React.Component {
                 <Modal show={this.state.showEdit} onHide={this.handleCloseEdit} aria-labelledby="contained-modal-title-vcenter" centered>
                     <Modal.Header closeButton>
                         <Modal.Title>
-                            Edit Contact - Only edit the fields you want to change
+                            Edit Contact
                         </Modal.Title>
+                        
                     </Modal.Header>
                     <Modal.Body>
+                    <p>You only need to edit the fields you want to change. Otherwise, it will remain unchanged.</p>
                         <Form onSubmit={this.handleSubmit}>
                             <Form.Group>
                                 <Form.Label>First Name</Form.Label>
