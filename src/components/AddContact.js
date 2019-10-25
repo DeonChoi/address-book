@@ -136,6 +136,18 @@ class AddContact extends React.Component {
     //     }
     // }
     handleSubmit = e => {
+        this.setState({
+            firstName: '',
+            lastName: '',
+            address: '',
+            city: '',
+            country: '',
+            postalCode: null,
+            phone: null,
+            email: '',
+            age: null,
+            personID: null
+        })
         e.preventDefault();
     }
     addPerson = () => {
