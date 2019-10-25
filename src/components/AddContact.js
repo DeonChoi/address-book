@@ -9,6 +9,7 @@ class AddContact extends React.Component {
         super(props);
         this.state = {
             show: false,
+            showEdit: false,
             people: [],
             // people: [{
             //     newFirstName: '',
@@ -29,15 +30,19 @@ class AddContact extends React.Component {
             postalCode: null,
             phone: null,
             email: '',
-            age: null
+            age: null,
+            personID: null
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.addPerson = this.addPerson.bind(this);
         this.editPerson = this.editPerson.bind(this);
+        this.editPersonIndex = this.editPersonIndex.bind(this);
         this.deletePerson = this.deletePerson.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleShow = this.handleShow.bind(this);
+        this.handleCloseEdit = this.handleCloseEdit.bind(this);
+        this.handleShowEdit = this.handleShowEdit.bind(this);
     }
 
     handleChange = e => {
@@ -72,10 +77,15 @@ class AddContact extends React.Component {
             people: [...state.people, {newFirstName: state.firstName, newLastName: state.lastName, newAddress: state.address, newCity: state.city, newCountry: state.country, newPostalCode: state.postalCode, newPhone: state.phone,newEmail: state.email, newAge: state.age}]
         }));
     }
+    editPersonIndex = (index) => {
+        this.setState({
+            personID: index
+        })
+    }
     editPerson = (index) => {
-        // // console.log(index);
-        // // console.log(this.state.people[index])
-        // // console.log(this.state.people[index].newAddress);
+        // console.log(index);
+        // console.log(this.state.people[index])
+        // console.log(this.state.people[index].newAddress);
         // let data = [...this.state.people];
         // data[index].newFirstName = this.state.firstName;
         // data[index].newLastName = this.state.lastName;
@@ -116,7 +126,7 @@ class AddContact extends React.Component {
     }
     deletePerson = (index) => {
         this.setState(state => {
-            const people = state.people.filter((item, person) => index !== person);
+            const people = state.people.filter((item, personIndex) => index !== personIndex);
             return {
               people,
             };
@@ -132,16 +142,75 @@ class AddContact extends React.Component {
             show:true
         });
     }
+    handleCloseEdit = () => {
+        this.setState({
+            showEdit:false
+        });
+    }
+    handleShowEdit = () => {
+        this.setState({
+            showEdit:true
+        });
+    }
 
     render () {
         return (
             <>
                 <Button variant='outline-primary' onClick={this.handleShow}>Add Contact</Button>
-
+                {/* Add Person Modal */}
                 <Modal show={this.state.show} onHide={this.handleClose} aria-labelledby="contained-modal-title-vcenter" centered>
                     <Modal.Header closeButton>
                         <Modal.Title>
                             Add New Contact
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form onSubmit={this.handleSubmit}>
+                            <Form.Group>
+                                <Form.Label>First Name</Form.Label>
+                                <Form.Control type='text' placeholder='John' name='firstName' required onChange={event => this.handleChange(event)}></Form.Control>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Last Name</Form.Label>
+                                <Form.Control type='text' placeholder='Smith' name='lastName' required onChange={event => this.handleChange(event)}></Form.Control>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Address</Form.Label>
+                                <Form.Control type='address' placeholder='123 Apple Street' name='address' required onChange={event => this.handleChange(event)}></Form.Control>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>City</Form.Label>
+                                <Form.Control type='text' placeholder='New York' name='city' required onChange={event => this.handleChange(event)}></Form.Control>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Country</Form.Label>
+                                <Form.Control type='text' placeholder='United States' name='country' required onChange={event => this.handleChange(event)}></Form.Control>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Postal Code</Form.Label>
+                                <Form.Control type='number' placeholder='12345' name='postalCode' required onChange={event => this.handleChange(event)}></Form.Control>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Phone</Form.Label>
+                                <Form.Control type='tel' placeholder='1234567890' name='phone' required onChange={event => this.handleChange(event)}></Form.Control>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control type='email' placeholder='johnsmith@email.com' name='email' required onChange={event => this.handleChange(event)}></Form.Control>
+                            </Form.Group>
+                            <Form.Group>
+                                <Form.Label>Age</Form.Label>
+                                <Form.Control type='number' placeholder='22' name='age' required onChange={event => this.handleChange(event)}></Form.Control>
+                            </Form.Group>
+                            <Button type="submit" onClick={() => {this.addPerson(); this.handleClose();}}>Submit form</Button>
+                        </Form>
+                    </Modal.Body>
+                </Modal>
+                {/* Edit Person Modal */}
+                <Modal show={this.state.showEdit} onHide={this.handleCloseEdit} aria-labelledby="contained-modal-title-vcenter" centered>
+                    <Modal.Header closeButton>
+                        <Modal.Title>
+                            Edit Contact
                         </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
@@ -182,10 +251,11 @@ class AddContact extends React.Component {
                                 <Form.Label>Age</Form.Label>
                                 <Form.Control type='number' placeholder='22' name='age' required onChange={event => this.handleChange(event)}></Form.Control>
                             </Form.Group>
-                            <Button type="submit" onClick={() => {this.addPerson(); this.handleClose();}}>Submit form</Button>
+                            <Button type="submit" onClick={() => {this.editPerson(this.state.personID); this.handleCloseEdit();}}>Submit form</Button>
                         </Form>
                     </Modal.Body>
                 </Modal>
+                
                 <Table striped bordered hover>
                     <thead>
                         <tr>
@@ -205,7 +275,7 @@ class AddContact extends React.Component {
                     <tbody>
                        {/* new table rows with table data nested inside */}
                        {this.state.people.map( (person,index) => 
-                            <tr key={person}>
+                            <tr key={index}>
                                 <td>{person.newFirstName}</td>
                                 <td>{person.newLastName}</td>
                                 <td>{person.newAddress}</td>
@@ -215,7 +285,7 @@ class AddContact extends React.Component {
                                 <td>{person.newPhone}</td>
                                 <td>{person.newEmail}</td>
                                 <td>{person.newAge}</td>
-                                <td><Button variant='primary' onClick={() => {this.handleShow(); this.editPerson(index); }}>Edit</Button></td>
+                                <td><Button variant='primary' onClick={() => {this.handleShowEdit(); this.editPersonIndex(index); }}>Edit</Button></td>
                                 <td><Button variant='primary' onClick={() => {this.deletePerson(index); }}>Delete</Button></td>
                             </tr>
                         )}
