@@ -22,14 +22,14 @@ class AddContact extends React.Component {
             //     newEmail: '',
             //     newAge: null
             // }],
-            firstName: '',
-            lastName: '',
-            address: '',
-            city: '',
-            country: '',
+            firstName: null,
+            lastName: null,
+            address: null,
+            city: null,
+            country: null,
             postalCode: null,
             phone: null,
-            email: '',
+            email: null,
             age: null,
             personID: null
         };
@@ -137,14 +137,14 @@ class AddContact extends React.Component {
     // }
     handleSubmit = e => {
         this.setState({
-            firstName: '',
-            lastName: '',
-            address: '',
-            city: '',
-            country: '',
+            firstName: null,
+            lastName: null,
+            address: null,
+            city: null,
+            country: null,
             postalCode: null,
             phone: null,
-            email: '',
+            email: null,
             age: null,
             personID: null
         })
@@ -203,6 +203,18 @@ class AddContact extends React.Component {
                 people,
             };
         });
+        this.setState({
+            firstName: null,
+            lastName: null,
+            address: null,
+            city: null,
+            country: null,
+            postalCode: null,
+            phone: null,
+            email: null,
+            age: null,
+            personID: null
+        })
     }
     deletePerson = (index) => {
         this.setState(state => {
@@ -211,6 +223,18 @@ class AddContact extends React.Component {
               people,
             };
         });
+        this.setState({
+            firstName: null,
+            lastName: null,
+            address: null,
+            city: null,
+            country: null,
+            postalCode: null,
+            phone: null,
+            email: null,
+            age: null,
+            personID: null
+        })
     }
     handleClose = () => {
         this.setState({
@@ -237,7 +261,7 @@ class AddContact extends React.Component {
         return (
             <>
                 <Button variant='outline-primary' onClick={this.handleShow}>Add Contact</Button>
-                {/* Add Person Modal */}
+                {/* Add Person Form Modal */}
                 <Modal show={this.state.show} onHide={this.handleClose} aria-labelledby="contained-modal-title-vcenter" centered>
                     <Modal.Header closeButton>
                         <Modal.Title>
@@ -286,7 +310,8 @@ class AddContact extends React.Component {
                         </Form>
                     </Modal.Body>
                 </Modal>
-                {/* Edit Person Modal */}
+
+                {/* Edit Person Form Modal */}
                 <Modal show={this.state.showEdit} onHide={this.handleCloseEdit} aria-labelledby="contained-modal-title-vcenter" centered>
                     <Modal.Header closeButton>
                         <Modal.Title>
